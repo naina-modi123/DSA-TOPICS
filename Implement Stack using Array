@@ -1,0 +1,48 @@
+class Stack {
+	private int arr[];
+	private int top;
+	private int capacity;
+	
+	public Stack (int capacity) {
+		this.capacity = capacity;
+		arr = new int [capacity];
+		top = -1;
+		
+	}
+
+	public boolean isEmpty() {
+		return top == -1;
+		
+	}
+	
+	public int size() {
+		return top + 1;
+		
+		
+	}
+	
+	public int top() {
+		if(isEmpty()){
+			return -1;
+		}
+		return arr[top];
+		
+		
+	}
+	
+	public void push(int element) {
+		if(top == capacity - 1){
+			System.out.println("Stack overflows");
+			return;
+		}
+		arr[++top] = element;
+
+    }
+	
+	public int pop() {
+		if(isEmpty()){
+			return -1;
+		}
+		return arr[top--];
+	}
+}
