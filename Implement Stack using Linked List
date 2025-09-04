@@ -1,0 +1,46 @@
+class Stack {
+	private ListNode top;
+	private int size;
+	private int capacity;
+	
+	public Stack (int capacity) {
+		this.top = null;
+		this.size = 0;
+		this.capacity  = capacity;
+		
+		
+	}
+	
+
+	public boolean isEmpty() {
+		return size == 0;
+		
+	}
+	
+	public int size() {
+		return size;
+		
+	}
+	
+	public int top() {
+		if(isEmpty()) return -1;
+		return top.data;
+		
+	}
+	
+	public void push(int element) {
+		if(size >= capacity) return;
+		ListNode newNode = new ListNode(element);
+		newNode.next = top;
+		top = newNode;
+		size++;
+		
+	}
+	
+	public void pop() {
+		if(isEmpty()) return;
+		top = top.next;
+		size--;
+		
+	}
+}
