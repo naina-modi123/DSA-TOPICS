@@ -1,0 +1,56 @@
+class Stack {
+	private Queue mainQueue;
+	private Queue helperQueue;
+	private int size;
+	private int capacity;
+	
+	public Stack (int capacity) {
+		this.capacity = capacity;
+		this.mainQueue = new Queue(capacity);
+		this.helperQueue = new Queue(capacity);
+		this.size = 0;
+		
+	}
+
+	public boolean isEmpty() {
+		return size == 0;
+		
+	}
+	
+	public int size() {
+		return size;
+		
+	}
+	
+	public int top() {
+		if(isEmpty()) return -1;
+		return mainQueue.front();
+	}
+	
+	public void push(int element) {
+		if (size == capacity) {
+			System.out.println("Stack is full");
+			return;
+		}
+		helperQueue.push(element);
+		while(mainQueue.isEmpty()){
+			helperQueue.push(mainQueue.front());
+			mainQueue.pop();
+		}
+		Queue temp = mainQueue;
+		mainQueue = helperQueue;
+		helperQueue = temp;
+		
+		size++;
+	}
+	
+	public void pop() {
+		if (isEmpty()) {
+			System.out.println("Stack is empty");
+			return;
+		}
+		mainQueue.pop();
+		size--;
+		
+	}
+}
