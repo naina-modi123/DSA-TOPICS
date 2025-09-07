@@ -1,0 +1,65 @@
+class Queue {
+	private ListNode frontNode;
+	private ListNode backNode;
+	private int size;
+	private int capacity;
+	Queue (int capacity) {
+		this.frontNode = null;
+		this.backNode = null;
+		this.size = 0;
+		this.capacity = capacity;
+
+	}
+
+	boolean isEmpty() {
+		return size == 0;
+
+	}
+	
+	int size() {
+		return size;
+
+	}
+	
+	int front() {
+		if(isEmpty()) return -1;
+		return frontNode.data;
+
+	}
+	
+	int back() {
+		if(isEmpty()) return -1;
+		return backNode.data;
+
+	}
+	
+	void push(int element) {
+		if(size == capacity){
+			System.out.println("Queue overflows");
+			return;
+		}
+		ListNode newNode = new ListNode(element);
+		if(isEmpty()){
+			frontNode = backNode = newNode;
+		}
+		else{
+		    backNode.next = newNode;
+		    backNode = newNode;
+		}
+        size++;
+	}
+	
+	void pop() {
+		if(isEmpty()){
+			System.out.println("queue is empty");
+			return;
+		}
+		frontNode = frontNode.next;
+		size--;
+		
+		if(isEmpty()){
+			backNode = null;
+		}
+
+	}
+}
