@@ -1,0 +1,38 @@
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[][] board = new int[n][n];
+        printNQueens(board, "", 0);
+    }
+
+    public static void printNQueens(int[][] board, String path, int row) {
+        int n = board.length;
+        if (row == n) {
+            System.out.println(path + ".");
+            return;
+        }
+        for (int col = 0; col < n; col++) {
+            if (isSafe(board, row, col)) {
+                board[row][col] = 1;
+                printNQueens(board, path + row + "-" + col + ", ", row + 1);
+                board[row][col] = 0;
+            }
+        }
+    }
+
+    public static boolean isSafe(int[][] board, int row, int col) {
+        for (int i = row - 1; i >= 0; i--) {
+            if (board[i][col] == 1) return false;
+        }
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (board[i][j] == 1) return false;
+        }
+        for (int i = row - 1, j = col + 1; i >= 0 && j < board.length; i--, j++) {
+            if (board[i][j] == 1) return false;
+        }
+        return true;
+    }
+}
