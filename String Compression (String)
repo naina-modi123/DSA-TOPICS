@@ -1,0 +1,32 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        sc.close();
+        
+        StringBuilder first = new StringBuilder();
+        StringBuilder second = new StringBuilder();
+        int count = 1;
+        for(int i=1;i<=s.length();i++){
+            if(i < s.length() && s.charAt(i) == s.charAt(i-1)){
+                count++;
+            }
+            else{
+                first.append(s.charAt(i-1));
+                second.append(s.charAt(i-1));
+                if(count>1){
+                second.append(count);
+                }
+                count = 1;
+            }
+            
+        }
+        System.out.println(first.toString());
+        System.out.println(second.toString());
+    }
+}
