@@ -1,0 +1,21 @@
+class Solution {
+    public boolean checkValidString(String s) {
+        return helper(s,0,0); 
+    }
+    private boolean helper(String s, int count, int idx){
+        if(count < 0){
+            return false;
+        }
+        if(idx == s.length()){
+            return count == 0;
+        }
+        char ch = s.charAt(idx);
+        if(ch == '('){
+            return helper(s, count+1, idx+1);
+        }
+        if(ch == ')'){
+            return helper(s, count-1, idx+1);
+        }
+        return helper(s, count-1, idx+1)|| helper(s, count+1, idx+1) || helper(s, count, idx+1);
+    }
+}
