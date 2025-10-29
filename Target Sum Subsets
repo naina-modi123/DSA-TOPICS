@@ -1,0 +1,27 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int a[] = new int [n];
+        for(int i=0;i<n;i++){
+            a[i] = sc.nextInt();
+        }
+        int tar = sc.nextInt();
+        printSubsets(a, 0, "", 0, tar);
+    }
+    public static void printSubsets(int[]a, int idx,String set, int sumSoFar,int tar){
+        if(idx == a.length){
+            if(sumSoFar == tar){
+                System.out.println(set+".");
+            }
+            return;
+        }
+        printSubsets(a, idx+1, set+a[idx]+", ", sumSoFar+a[idx], tar);
+        printSubsets(a, idx+1, set, sumSoFar, tar);
+    }
+}
