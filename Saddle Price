@@ -1,0 +1,51 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    public static void SaddlePrice(int[][] a, int n) {
+        boolean found = false;
+
+        for (int i = 0; i < n; i++) {
+            int rowMin = a[i][0];
+            int colIndex = 0;
+
+            // Step 1: find minimum in row
+            for (int j = 1; j < n; j++) {
+                if (a[i][j] < rowMin) {
+                    rowMin = a[i][j];
+                    colIndex = j;
+                }
+            }
+
+            boolean isSaddle = true;
+            for (int k = 0; k < n; k++) {
+                if (a[k][colIndex] > rowMin) {
+                    isSaddle = false;
+                    break;
+                }
+            }
+
+            if (isSaddle) {
+                System.out.println(rowMin);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Invalid input");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int a[][] = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                a[i][j] = sc.nextInt();
+            }
+        }
+        SaddlePrice(a, n);
+    }
+}
