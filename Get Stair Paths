@@ -1,0 +1,39 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        ArrayList<String> paths =  getStairsPath(n);
+        System.out.println(paths);
+    }
+    public static ArrayList<String> getStairsPath(int n){
+        if(n == 0){
+            ArrayList<String> base = new ArrayList<>();
+            base.add("");
+            return base;
+        }
+        else if(n < 0){
+            return new ArrayList<>();
+        }
+        ArrayList<String> path1 = getStairsPath(n-1);
+        ArrayList<String> path2 = getStairsPath(n-2);
+        ArrayList<String> path3 = getStairsPath(n-3);
+        
+        ArrayList<String> paths = new ArrayList<>();
+        for (String path : path1) {
+            paths.add("1" + path);
+        }
+        for (String path : path2) {
+            paths.add("2" + path);
+        }
+        for (String path : path3) {
+            paths.add("3" + path);
+        }
+        
+        return paths;
+    }
+}
