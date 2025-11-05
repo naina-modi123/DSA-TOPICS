@@ -1,0 +1,36 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        ArrayList<String> paths = getMazePath(1,1,n,m);
+        System.out.println(paths);
+    }
+    public static ArrayList<String> getMazePath(int sr, int sc, int er,int ec){
+        if(sr == er && sc == ec){
+            ArrayList<String> base = new ArrayList<>();
+            base.add("");
+            return base;
+        }
+        if(sr > er || sc > ec){
+            return new ArrayList<>();
+        }
+        ArrayList<String> hPaths = getMazePath(sr, sc + 1, er, ec);
+        ArrayList<String> vPaths = getMazePath(sr + 1, sc, er, ec);
+
+        ArrayList<String> paths = new ArrayList<>();
+
+        for (String path : hPaths) {
+            paths.add("h" + path);
+        }
+        for (String path : vPaths) {
+            paths.add("v" + path);
+        }
+        return paths;
+    }
+}
