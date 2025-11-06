@@ -1,0 +1,29 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        int n1 = sc.nextInt();
+        int[] a1 = new int[n1];
+        HashSet<Integer> set1 = new HashSet<>();
+        for(int i=0;i<n1;i++){
+            set1.add(sc.nextInt());
+        }
+        int n2 = sc.nextInt();
+        int[] a2 = new int[n2];
+        for(int i=0;i<n2;i++){
+            a2[i] = sc.nextInt();
+        }
+        HashSet<Integer> set2 = new HashSet<>();
+        for(int i=0;i<n2;i++){
+            if(set1.contains(a2[i]) && !set2.contains(a2[i])){
+                System.out.println(a2[i]);
+                set2.add(a2[i]);
+            }
+        }
+        sc.close();
+    }
+}
