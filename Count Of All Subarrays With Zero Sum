@@ -1,0 +1,31 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for(int i=0;i<n;i++){
+            arr[i] = sc.nextInt();
+        }
+        System.out.println(countZeroSumSubArray(arr, n));
+    }
+    public static int countZeroSumSubArray(int[] arr, int n){
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int prefixSum = 0;
+        int count = 0;
+        map.put(0,1);
+        for(int i=0;i<n;i++){
+            prefixSum += arr[i];
+            
+            if(map.containsKey(prefixSum)){
+                count += map.get(prefixSum);
+            }
+            map.put(prefixSum, map.getOrDefault(prefixSum, 0)+1);
+        }
+        return count;
+    }
+}
