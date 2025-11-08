@@ -1,0 +1,27 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner (System.in);
+        String str = sc.next();
+        HashMap<Character, Integer> map = new HashMap<>();
+        for(char ch : str.toCharArray()){
+            map.put(ch, map.getOrDefault(ch,0)+1);
+        }
+        char maxChar = ' ';
+        int maxFreq = 0;
+
+        for (char key : map.keySet()) {
+            int freq = map.get(key);
+            if (freq > maxFreq) {
+                maxFreq = freq;
+                maxChar = key;
+            }
+        }
+        System.out.println(maxChar);
+        
+    }
+}
