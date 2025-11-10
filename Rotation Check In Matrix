@@ -1,0 +1,41 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[][] arr = new int[n][n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                arr[i][j] = sc.nextInt();
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for(int j=0;j<n;j++){
+            sb.append(arr[0][j]).append(" ");
+        }
+        String firstRow = sb.toString().trim();
+        String doubled = firstRow + " "+firstRow;
+        boolean allRotate = true;
+        for(int i=1;i<n;i++){
+            StringBuilder temp = new StringBuilder();
+            for(int j=0;j<n;j++){
+                temp.append(arr[i][j]).append(" ");
+            }
+            String rowStr = temp.toString().trim();
+
+            if(!doubled.contains(rowStr)){
+                allRotate = false;
+                break;
+            }
+        }
+        if(allRotate)
+            System.out.println("YES");
+        else
+            System.out.println("NO");
+        
+    }
+}
