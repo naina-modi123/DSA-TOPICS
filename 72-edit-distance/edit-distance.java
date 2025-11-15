@@ -3,26 +3,22 @@ class Solution {
         int m = word1.length();
         int n = word2.length();
 
-        int[][] memo = new int[m][n];  
-        for (int[] row : memo) {
-            Arrays.fill(row, -1);
+        int[][] dp = new int[m+1][n+1];  
+        for(int i=0;i<=m;i++){
+            dp[i][0] = i;
         }
-        return helper(word1, word2, 0, 0, memo);
-    }
-    private int helper(String w1, String w2, int i, int j, int[][] memo){
-        if(i == w1.length()) return w2.length() - j;
-        if(j == w2.length()) return w1.length() - i;
-
-        if(memo[i][j] != -1) return memo[i][j];
-
-        if(w1.charAt(i) == w2.charAt(j)){
-            return helper(w1, w2, i+1, j+1, memo);
+        for(int j=0;j<=n;j++){
+            dp[0][j] = j;
         }
-        int insert = 1+ helper(w1, w2, i, j+1, memo);
-        int delete = 1+ helper(w1, w2, i+1, j, memo);
-        int replace = 1+ helper(w1, w2, i+1, j+1, memo);
-
-        memo[i] [j]= Math.min(insert, Math.min(delete, replace));
-        return memo[i][j];
+        for(int i=1;i<=m;i++){
+            for(int j=1;j<=n;j++){
+                if(word1.charAt(i-1) == word2.charAt(j-1)){
+                    dp[i][j] = dp[i-1][j-1];
+                }else{
+                    dp[i][j] = 1 + Math.min(dp[i-1][j], Math.min(dp[i][j-1], dp[i-1][j-1]));
+                }
+            }
+        }
+        return dp[m][n];
     }
 }
