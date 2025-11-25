@@ -1,0 +1,23 @@
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		String str = "abc";
+		printSubsequence(str," ");
+	}
+	public static void printSubsequence(String str, String ans){
+	    if(str.length() == 0){
+	        System.out.println(ans);
+	        return;
+	    }
+	    char ch = str.charAt(0);
+	    String ros = str.substring(1);
+	    
+	    // part of answer
+	    printSubsequence(ros, ans+ch);
+	    
+	    // not a part of answer
+	    printSubsequence(ros, ans);
+	    
+	}
+}
