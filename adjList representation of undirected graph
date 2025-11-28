@@ -1,0 +1,50 @@
+import java.util.*;
+class graph{
+    private Map<Integer, ArrayList<Integer>> adjList;
+    public graph(){
+        adjList = new HashMap<>();
+    }
+    // addEdge function
+    public void addEdge(int u, int v){
+        adjList.putIfAbsent(u, new ArrayList<>());
+        adjList.putIfAbsent(v, new ArrayList<>());
+        
+        adjList.get(u).add(v);
+        adjList.get(v).add(u);
+    }
+    
+    // removeEdge function
+    public void removeEdge(int u, int v){
+        if(adjList.containsKey(u)){
+            adjList.get(u).remove(Integer.valueOf(v));
+        }
+        if(adjList.containsKey(v)){
+            adjList.get(v).remove(Integer.valueOf(u));
+        }
+    }
+    // print graph function
+    public void printGraph(){
+        for(int node : adjList.keySet()){
+            System.out.println(node+" -> "+adjList.get(node));
+        }
+    }
+}
+
+public class Main{
+	public static void main(String[] args) {
+	    graph g = new graph();
+	    g.addEdge(1, 2);
+        g.addEdge(1, 3);
+        g.addEdge(2, 4);
+        g.addEdge(3, 4);
+
+        System.out.println("Graph before deletion:");
+        g.printGraph();
+
+        g.removeEdge(1, 3);
+
+        System.out.println("\nGraph after deleting (1,3):");
+        g.printGraph();
+	
+	}
+}
