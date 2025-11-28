@@ -1,0 +1,62 @@
+import java.util.*;
+
+class Solution {
+    private void dfs(int node, ArrayList<ArrayList<Integer>> adj,
+                     HashMap<Integer, Boolean> visited, ArrayList<Integer> comp) {
+
+        visited.put(node, true);
+        comp.add(node);
+
+        for (int neigh : adj.get(node)) {
+            if (!visited.containsKey(neigh)) {
+                dfs(neigh, adj, visited, comp);
+            }
+        }
+    }
+
+    public ArrayList<ArrayList<Integer>> connectedComponents(int n, int[][] edges) {
+
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++)
+adj.add(new ArrayList<>());
+
+
+        for (int[] e : edges) {
+            int u = e[0];
+            int v = e[1];
+            adj.get(u).add(v);
+            adj.get(v).add(u);
+        }
+
+      
+        HashMap<Integer, Boolean> visited = new HashMap<>();
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+
+        
+        for (int i = 0; i < n; i++) {
+
+            if (!visited.containsKey(i)) {
+
+                ArrayList<Integer> comp = new ArrayList<>();
+
+                dfs(i, adj, visited, comp);
+
+                Collections.sort(comp); 
+                ans.add(comp);
+            }
+        }
+
+        return ans;
+    }
+    public static void main(String[] args) {
+
+        int n = 5;
+        int[][] edges = {
+            {0, 1}, {1, 2}, {3, 4}
+        };
+
+        Solution s = new Solution();
+
+        System.out.println(s.connectedComponents(n, edges));
+    }
+}
