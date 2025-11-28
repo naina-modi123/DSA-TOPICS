@@ -1,0 +1,74 @@
+import java.util.*;
+
+class Graph {
+    private HashMap<Integer, ArrayList<Integer>> adjList;
+
+    public Graph() {
+        adjList = new HashMap<>();
+    }
+
+    // Add edge (undirected or change as needed)
+    void addEdge(int u, int v) {
+        adjList.putIfAbsent(u, new ArrayList<>());
+        adjList.putIfAbsent(v, new ArrayList<>());
+        adjList.get(u).add(v);
+        adjList.get(v).add(u);
+    }
+
+    // BFS Traversal
+    public List<Integer> bfs(int start) {
+
+        // visited map
+        HashMap<Integer, Boolean> visited = new HashMap<>();
+
+        // queue for FIFO
+        Queue<Integer> q = new LinkedList<>();
+
+        // answer list
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        // initialization
+        q.add(start);
+        visited.put(start, true);
+
+        // process
+        while (!q.isEmpty()) {
+            int node = q.poll();
+            ans.add(node);
+
+            for (int neigh : adjList.get(node)) {
+                if (!visited.containsKey(neigh)) {
+                    visited.put(neigh, true);
+                    q.add(neigh);
+                }
+            }
+        }
+
+        return ans;
+    }
+
+    // Print the graph
+    void printGraph() {
+        for (int key : adjList.keySet()) {
+            System.out.println(key + " -> " + adjList.get(key));
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Graph g = new Graph();
+
+        g.addEdge(1, 2);
+        g.addEdge(1, 3);
+        g.addEdge(2, 4);
+        g.addEdge(3, 5);
+
+        System.out.println("Graph:");
+        g.printGraph();
+
+        System.out.println("\nBFS Traversal from 1:");
+        System.out.println(g.bfs(1));
+    }
+}
