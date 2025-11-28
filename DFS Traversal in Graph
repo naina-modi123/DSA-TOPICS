@@ -1,0 +1,53 @@
+import java.util.*;
+
+class Solution {
+
+    // Recursive DFS helper function
+    private void dfsHelper(int node, ArrayList<ArrayList<Integer>> adj,
+                           HashMap<Integer, Boolean> visited, ArrayList<Integer> ans) {
+
+        visited.put(node, true);
+        ans.add(node);
+
+        for (int neigh : adj.get(node)) {
+            if (!visited.containsKey(neigh)) {
+                dfsHelper(neigh, adj, visited, ans);
+            }
+        }
+    }
+
+    // DFS function
+    public ArrayList<Integer> dfs(ArrayList<ArrayList<Integer>> adj) {
+
+        HashMap<Integer, Boolean> visited = new HashMap<>();
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        // start DFS from node 0
+        dfsHelper(0, adj, visited, ans);
+
+        return ans;
+    }
+
+    
+    public static void main(String[] args) {
+
+        
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        adj.get(0).add(1);
+        adj.get(0).add(2);
+        adj.get(1).add(0);
+        adj.get(1).add(3);
+        adj.get(2).add(0);
+        adj.get(2).add(4);
+        adj.get(3).add(1);
+        adj.get(4).add(2);
+
+        Solution s = new Solution();
+        System.out.println(s.dfs(adj));
+    }
+}
