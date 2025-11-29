@@ -1,0 +1,58 @@
+import java.util.*;
+
+class Solution {
+
+    private ArrayList<Integer> dfs(int node, int dest,
+                                   ArrayList<ArrayList<Integer>> adj,
+                                   HashMap<Integer, Boolean> visited) {
+
+        visited.put(node, true);
+
+        if (node == dest) {
+            ArrayList<Integer> base = new ArrayList<>();
+            base.add(node);
+            return base;
+        }
+
+        for (int neigh : adj.get(node)) {
+            if (!visited.containsKey(neigh)) {
+                ArrayList<Integer> path = dfs(neigh, dest, adj, visited);
+
+                if (path != null) {
+                    path.add(0, node);   
+                    return path;
+                }
+            }
+        }
+
+        return null; 
+    }
+
+    public ArrayList<Integer> getPath(int n, int[][] edges, int src, int dest) {
+
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) adj.add(new ArrayList<>());
+
+        for (int[] e : edges) {
+            adj.get(e[0]).add(e[1]);
+            adj.get(e[1]).add(e[0]);
+        }
+
+        HashMap<Integer, Boolean> visited = new HashMap<>();
+
+        return dfs(src, dest, adj, visited);
+    }
+
+    public static void main(String[] args) {
+
+        int n = 6;
+        int[][] edges = {
+            {0,1},{0,2},{1,3},{3,4},{2,5}
+        };
+
+        Solution s = new Solution();
+
+        System.out.println(s.getPath(n, edges, 0, 4));
+       
+    }
+}
