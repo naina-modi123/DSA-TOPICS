@@ -1,24 +1,28 @@
 class Solution {
-    public int numSquares(int n) {
-        int[] memo = new int[n + 1];
-        Arrays.fill(memo, -1);
-        return helper(n, memo);
-    }
-
-    private int helper(int n, int[] memo) {
-        if (n < 0) return Integer.MAX_VALUE;
-        if (n == 0) return 0;
-        if (memo[n] != -1) return memo[n];
-
-        int minCount = n;
-        for (int i = 1; i * i <= n; i++) {
-            int count = helper(n - i * i, memo);
-            if (count != Integer.MAX_VALUE) {
-                minCount = Math.min(minCount, count + 1);
-            }
+    private int minSqr_rec(int n){
+        if(n == 0) return 0;
+        int minAns = Integer.MAX_VALUE;
+        for(int i=1;i*i <= n;i++){
+            int subAns = minSqr_rec(n - i*i)+1;
+            minAns = Math.min(minAns, subAns);
         }
-
-        memo[n] = minCount;
-        return minCount;
+        return minAns;
+    }
+    private int minSqr_memo(int n, int[] dp){
+        if(n == 0) return 0;
+        if(dp[n] != -1) return dp[n];
+        int minAns = Integer.MAX_VALUE;
+        for(int i=1;i*i <= n;i++){
+            int subAns = minSqr_memo(n-i*i, dp)+1;
+            minAns = Math.min(minAns, subAns);
+        }
+        dp[n] = minAns;
+        return dp[n];
+    }
+    public int numSquares(int n) {
+        int[] dp = new int[n+1];
+        Arrays.fill(dp, -1);
+        return minSqr_memo(n, dp);
+        
     }
 }
