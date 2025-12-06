@@ -28,13 +28,29 @@ class Solution {
 
         return (prev != -1) ? dp[prev][idx] = ans : ans;
     }
+    private int lis_tab(int[] nums){
+        int n = nums.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp , 1);
+        int ans = 1;
+        for(int idx=1;idx<n;idx++){
+            for(int prev =0;prev < idx;prev++){
+                if(nums[idx] > nums[prev]){
+                    dp[idx] = Math.max(dp[idx] , dp[prev]+1);
+                }
+            }
+            ans = Math.max(ans, dp[idx]);
+        }
+        return ans;
+
+    }
     public int lengthOfLIS(int[] nums) {
         int n = nums.length;
         int[][] dp = new int[n+1][n+1];
         for(int[] a: dp){
             Arrays.fill(a, -1);
         }
-        return lis_memo(nums, 0, -1, dp);
+        return lis_tab(nums);
         
     }
 }
