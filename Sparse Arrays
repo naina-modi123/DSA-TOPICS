@@ -1,0 +1,13 @@
+public static List<Integer> matchingStrings(List<String> stringList, List<String> queries) {
+    // Write your code here
+    List<Integer> res = new ArrayList<>();
+    for(String stQ : queries){
+        int count = 0;
+        for(String stL : stringList){
+            if(stQ.equals(stL)) count++;
+        }
+        res.add(count);
+    }
+    return res;
+
+    }
