@@ -1,0 +1,19 @@
+class Solution {
+    public String postToPre(String postfix) {
+        // Your code goes here
+        Stack<String> st = new Stack<>();
+        for(int i=0;i<postfix.length();i++){
+            char ch = postfix.charAt(i);
+            if(ch >= '0' && ch <= '9'){
+                st.push(ch+"");
+            }
+            else{
+                String op2 = st.pop();
+                String op1 = st.pop();
+                String ans = ch+op1+op2;
+                st.push(ans);
+            }
+        }
+        return st.pop();
+    }
+}
