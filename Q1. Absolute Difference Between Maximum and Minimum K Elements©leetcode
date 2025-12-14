@@ -1,0 +1,14 @@
+class Solution {
+    public int absDifference(int[] nums, int k) {
+        Arrays.sort(nums);
+        int kLargest = 0;
+        int kSmallest = 0;
+        for(int i=0;i<k;i++){
+            kSmallest += nums[i];
+        }
+        for(int i=nums.length - k;i<nums.length;i++){
+            kLargest += nums[i];
+        }
+        return Math.abs(kLargest - kSmallest);
+    }
+}©leetcode
