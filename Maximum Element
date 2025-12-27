@@ -1,0 +1,41 @@
+class Result {
+
+    /*
+     * Complete the 'getMax' function below.
+     *
+     * The function is expected to return an INTEGER_ARRAY.
+     * The function accepts STRING_ARRAY operations as parameter.
+     */
+
+    public static List<Integer> getMax(List<String> operations) {
+    // Write your code here
+        Stack<Integer> st = new Stack<>();
+        List<Integer> ans = new ArrayList<>();
+        Stack<Integer> maxStack = new Stack<>();
+        for(String op : operations){
+            String[] parts = op.split(" ");
+            
+            if(parts[0].equals("1")){
+                int x = Integer.parseInt(parts[1]);
+                st.push(x);
+                
+                if(maxStack.isEmpty() || x >= maxStack.peek()){
+                    maxStack.push(x);
+                }
+            }
+            else if(parts[0].equals("2")){
+                int remove = st.pop();
+                if(remove == maxStack.peek()){
+                    maxStack.pop();
+                }
+            }
+            else{
+                if(parts[0].equals("3")){
+                    ans.add(maxStack.peek());
+                }
+            }
+        }
+        return ans;
+    }
+
+}
