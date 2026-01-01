@@ -2,17 +2,16 @@ class Solution {
     public double myPow(double x, int n) {
         long N = n;
         if(N < 0){
-            N *= -1;
             x = 1/x;
+            N *= -1;
+            
         }
-        return helper(x, N);
+        return helper(x, N);       
     }
-    public double helper(double x , long n){
+    public double helper(double x, long n){
         if(n == 0) return 1;
-        double subans =  helper(x, n/2);
-        if(n % 2 == 0){
-            return subans*subans;
-        }
-        return subans*subans * x;
+        double subAns = helper(x, n/2);
+        if(n % 2 == 0) return subAns*subAns;
+        return x*subAns*subAns;
     }
 }
