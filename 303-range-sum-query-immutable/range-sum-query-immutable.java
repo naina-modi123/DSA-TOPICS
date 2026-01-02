@@ -4,11 +4,15 @@ class NumArray {
         this.nums = nums;   
     }
     public int sumRange(int left, int right) {
-        int sum = 0;
-        for(int i=left; i<=right;i++){
-            sum += nums[i];
+        int n = nums.length;
+        int psa[] = new int[n];
+        int ans = 0;
+        psa[0] = nums[0];
+        for(int i=1;i<n;i++){
+            psa[i] = psa[i-1]+nums[i];
         }
-        return sum;
+        if (left == 0) return psa[right];
+        else return psa[right] - psa[left-1];
     }
 }
 
