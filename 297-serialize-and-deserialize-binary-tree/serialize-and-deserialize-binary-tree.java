@@ -8,47 +8,41 @@
  * }
  */
 public class Codec {
+    private int idx;
+    private void helperSerealize(TreeNode root, StringBuilder sb){
+        if(root == null){
+            sb.append("null,");
+            return;
+        }
+        sb.append(root.val+",");
+        helperSerealize(root.left, sb);
+        helperSerealize(root.right, sb);
+    }
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        if(root == null) return "";
-        Queue<TreeNode> q = new LinkedList<>();
-        StringBuilder res = new StringBuilder();
-        q.add(root);
-        while(!q.isEmpty()){
-            TreeNode node = q.poll();
-            if(node == null){
-                res.append("null ");
-                continue;
-            }
-            res.append(node.val+" ");
-            q.add(node.left);
-            q.add(node.right);
+        StringBuilder sb = new StringBuilder();
+        helperSerealize(root, sb);
+        return sb.toString();    
+    }
+    public TreeNode helperDeserialize(String data[]){
+        if(idx >= data.length || data[idx].equals("null")) {
+            idx++;
+            return null;
         }
-        return res.toString();
+        TreeNode node = new TreeNode(Integer.parseInt(data[idx]));
+        idx++;
+        node.left = helperDeserialize(data);
+        node.right = helperDeserialize(data);
+        return node;
     }
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        if(data == "")return null;
-        Queue<TreeNode> q = new LinkedList<>();
-        String[] values = data.split(" ");
-        TreeNode root = new TreeNode(Integer.parseInt(values[0]));
-        q.add(root);
-        for(int i=1;i<values.length;i++){
-            TreeNode parent = q.poll();
-            if(!values[i].equals("null")){
-                TreeNode left = new TreeNode(Integer.parseInt(values[i]));
-                parent.left = left;
-                q.add(left);
-            } 
-            if(!values[++i].equals("null")){
-                TreeNode right = new TreeNode(Integer.parseInt(values[i]));
-                parent.right = right;
-                q.add(right);
-            }
-        }
-        return root;
+        idx = 0;
+        String[] arr = data.split(",");
+        return helperDeserialize(arr);
+        
     }
 }
 
