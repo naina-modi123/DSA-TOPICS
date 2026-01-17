@@ -1,0 +1,32 @@
+/*class Node{
+    int data;
+    Node left,right;
+    Node(int d)
+    {
+        data=d;
+        left=right=null;
+    }
+}*/
+
+// Function should return the root of the bst formed using postorder traversal.
+class GFG {
+    private static int idx;
+    private static Node helper(int post[], int minVal, int maxVal){
+        if(idx < 0) return null;
+        int val = post[idx];
+        if(val < minVal || val > maxVal) return null;
+        Node node = new Node(val);
+        idx--;
+        node.right = helper(post, val+1, maxVal);
+        node.left = helper(post, minVal, val -1);
+        
+        
+        return node;
+        
+    }
+    public static Node constructTree(int post[], int n) {
+        // Add your code here.
+        idx = n-1;
+        return helper(post, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+}
