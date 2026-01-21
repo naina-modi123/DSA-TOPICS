@@ -1,0 +1,15 @@
+class Solution {
+    public int kthSmallest(int[] arr, int k) {
+        // Code here
+        int n = arr.length;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for(int num : arr){
+            pq.add(num);
+        }
+        while(k > 1){
+            pq.poll();
+            k--;
+        }
+        return pq.peek();
+    }
+}
