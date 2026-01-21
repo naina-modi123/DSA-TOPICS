@@ -16,12 +16,21 @@
 class Solution {
     public int sumOfLeftLeaves(TreeNode root) {
         if(root == null) return 0;
-         int sum = 0;
-        if (root.left != null && root.left.left == null && root.left.right == null) {
-            sum += root.left.val;
+        int ans = 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            TreeNode temp = q.poll();
+            if(temp.left != null){
+                if(temp.left.left == null && temp.left.right == null){
+                    ans += temp.left.val;
+                }
+                q.add(temp.left);
+            }
+            if(temp.right != null){
+                q.add(temp.right);
+            }
         }
-        sum += sumOfLeftLeaves(root.left);
-        sum += sumOfLeftLeaves(root.right);
-        return sum; 
+        return ans;
     }
 }
