@@ -1,21 +1,41 @@
 class Solution {
-    public boolean isPalindrome(String s) {
-        int left = 0;
-        int right = s.length()-1;
-        while(left < right){
-            while(left < right && !Character.isLetterOrDigit(s.charAt(left))){
-                left++;
+    public boolean isUpperCase(char ch){
+        return (ch >= 'A' && ch <= 'Z');
+    }
+    public boolean isLowerCase(char ch){
+        return (ch >= 'a' && ch <= 'z');
+    }
+    public boolean isDigit(char ch){
+        return (ch >= '0' && ch <= '9');
+    }
+    public String removeAllAlphaNumeric(String s){
+        StringBuilder sb = new StringBuilder();
+        for(char ch : s.toCharArray()){
+            if(isUpperCase(ch)){
+                char c = (char)(ch - 'A' + 'a');
+                sb.append(c);
+            }else if(isLowerCase(ch)){
+                sb.append(ch);
+            }else if(isDigit(ch)){
+                sb.append(ch);
             }
-            while(left < right && !Character.isLetterOrDigit(s.charAt(right))){
-                right--;
-            }
-            if(Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))){
+        }
+        return sb.toString();
+    }
+    public boolean isAPalindrome(String s){
+        int i=0, j= s.length() - 1;
+        while(i < j){
+            if(s.charAt(i) != s.charAt(j)){
                 return false;
             }
-            left++;
-            right--;
+            i++;
+            j--;
         }
         return true;
+    }
+    public boolean isPalindrome(String s) {
+        String updatedString = removeAllAlphaNumeric(s);
+        return (isAPalindrome(updatedString));
         
     }
 }
