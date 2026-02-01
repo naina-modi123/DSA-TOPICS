@@ -1,12 +1,12 @@
 class Solution {
     public int minimumCost(int[] nums) {
         int n = nums.length;
-        int ans = Integer.MAX_VALUE;
-        for(int i=1;i<=n-2;i++){
-            for(int j=i+1;j<=n-1;j++){
-                ans = Math.min(ans, nums[0]+nums[i]+nums[j]);
-            }
+        int cost = Integer.MAX_VALUE;
+        int minSoFar = nums[1];
+        for(int i=2;i<n;i++){
+            cost = Math.min(nums[0]+minSoFar+nums[i], cost);
+            minSoFar = Math.min(minSoFar, nums[i]);
         }
-        return ans;
+        return cost;
     }
 }
