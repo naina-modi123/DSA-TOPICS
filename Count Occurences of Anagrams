@@ -1,0 +1,33 @@
+// User function Template for Java
+
+class Solution {
+
+    int search(String pat, String txt) {
+        // code here
+        if(pat.length() > txt.length()) return 0;
+        int[] patFreq = new int[26];
+        int[] txtFreq = new int[26];
+        for(int i=0;i<pat.length();i++){
+            patFreq[pat.charAt(i) - 'a']++;
+        }
+        for(int i=0;i<pat.length();i++){
+            txtFreq[txt.charAt(i) - 'a']++;
+        }
+        int ans = 0;
+        if(Arrays.equals(patFreq, txtFreq)){
+            ans += 1;
+        }
+        int i= pat.length(), j = 0;
+        while(i < txt.length()){
+            txtFreq[txt.charAt(i) - 'a']++;
+            txtFreq[txt.charAt(j) - 'a']--;
+            if(Arrays.equals(patFreq, txtFreq)){
+                ans += 1;
+            }
+            
+            i++;
+            j++;
+        }
+        return ans;
+    }
+}
