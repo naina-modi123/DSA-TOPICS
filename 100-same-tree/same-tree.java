@@ -21,6 +21,5 @@ class Solution {
         boolean cond2 = isSameTree(p.left, q.left);
         boolean cond3 = isSameTree(p.right, q.right);
         return (cond1 && cond2 && cond3);
-        
     }
 }
