@@ -1,0 +1,18 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        Stack<Character> st = new Stack<>();
+        for(char ch : str.toCharArray()){
+            st.push(ch);
+        }
+        for(int i=st.size();i>0;i--){
+            System.out.print(st.pop());
+        }
+    }
+}
