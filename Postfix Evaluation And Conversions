@@ -1,0 +1,46 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    private static int calculate(Integer opr1, Integer opr2, Character ch){
+        if(ch == '+') return opr1 + opr2;
+        else if(ch == '-') return opr1 - opr2;
+        else if(ch == '*') return opr1* opr2;
+        else return opr1/opr2;
+    }
+    private static void postfixEvaConversion(String exp){
+        Stack<Integer> st = new Stack<>();
+        Stack<String> infix = new Stack<>();
+        Stack<String> prefix = new Stack<>();
+        for(char ch : exp.toCharArray()){
+            if(ch >= '0' && ch <= '9'){
+                st.push(ch - '0');
+                infix.push(ch+"");
+                prefix.push(ch+"");
+            }else{
+                int opr2 = st.pop();
+                int opr1 = st.pop();
+                st.push(calculate(opr1, opr2, ch));
+                
+                String opri2 = infix.pop();
+                String opri1 = infix.pop();
+                infix.push("(" + opri1 +ch+ opri2+")");
+            
+                String oprp2 = prefix.pop();
+                String oprp1 = prefix.pop();
+                prefix.push(ch + oprp1 + oprp2);
+            }
+            
+        }
+        System.out.println(st.pop());
+        System.out.println(infix.pop());
+        System.out.println(prefix.pop());
+    }
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        String exp = sc.nextLine();
+        postfixEvaConversion(exp);
+    }
+}
