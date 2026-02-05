@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    private static int calculate (int op1, int op2, Character ch){
+        if(ch == '+') return op1 + op2;
+        if(ch == '-') return op1 - op2;
+        if(ch == '*') return op1 * op2;
+        return op1 / op2;
+    }
+    private static int precedence (Character ch){
+        if(ch == '+' || ch == '-') return 1;
+        if(ch == '*' || ch == '/') return 2;
+        return 0;
+    }
+    private static int infixEvauation(String exp){
+        Stack<Integer> st1 = new Stack<>();    // operands
+        Stack<Character> st2 = new Stack<>();     // operators
+        for(char ch : exp.toCharArray()){
+            if(ch >= '0' && ch <= '9'){
+                st1.push(ch - '0');
+            }else if(ch == '('){
+                st2.push(ch);
+            }else if(ch == ')'){
+                while(st2.size() > 0 && precedence(st2.peek()) >= precedence(ch)){
+                    int op2 = st1.pop();
+                    int op1 = st1.pop();
+                    int ans = calculate(op1, op2, st2.pop());
+                    st1.push(ans);
+                }
+                st2.pop();
+                
+            }else if(ch == '+' || ch == '-' || ch == '*' || ch == '/'){
+                while(st2.size() > 0 && precedence(st2.peek()) >= precedence(ch)){
+                    int op2 = st1.pop();
+                    int op1 = st1.pop();
+                    int ans = calculate(op1, op2, st2.pop());
+                    st1.push(ans);
+                }
+                st2.push(ch);
+            }
+        }
+        while(st2.size() > 0){
+            int op2 = st1.pop();
+            int op1 = st1.pop();
+            int ans = calculate(op1, op2, st2.pop());
+            st1.push(ans);
+        }
+        return st1.pop();
+    }
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        String exp = sc.nextLine();
+        System.out.println(infixEvauation(exp));
+    }
+}
