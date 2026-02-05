@@ -1,0 +1,70 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    private static int precedence(Character ch){
+        if(ch == '+' || ch == '-') return 1;
+        if(ch == '*' || ch == '/') return 2;
+        return 0;
+    }
+    private static void infixConversion(String exp){
+        Stack<String> pre = new Stack<>();
+        Stack<String> post = new Stack<>();
+        Stack<Character> st = new Stack<>();
+        for(char ch : exp.toCharArray()){
+            if(ch == '('){
+                st.push(ch);
+            }else if(ch == ')'){
+                while(st.peek() != '('){
+                    String preop2 = pre.pop();
+                    String preop1 = pre.pop();
+                    char optr = st.pop();
+                    pre.push(optr+preop1+preop2);
+                    String postop2 = post.pop();
+                    String postop1 = post.pop();
+                    
+                    
+                    post.push(postop1+postop2+optr); 
+                }
+                st.pop();
+                
+            }else if(ch >= 'a' && ch <= 'z'){
+                pre.push(ch+"");
+                post.push(ch+"");
+            }else if(ch == '+' || ch == '-' || ch == '*' || ch == '/'){
+                while(st.size() > 0 && precedence(st.peek()) >= precedence(ch)){
+                    String preop2 = pre.pop();
+                    String preop1 = pre.pop();
+                    char optr = st.pop();
+                    pre.push(optr+preop1+preop2);
+                    String postop2 = post.pop();
+                    String postop1 = post.pop();
+                    
+                    
+                    post.push(postop1+postop2+optr);
+                    
+                }
+                st.push(ch); 
+            }
+        }
+        while(st.size() > 0){
+            String preop2 = pre.pop();
+            String preop1 = pre.pop();
+            char optr = st.pop();
+            pre.push(optr+preop1+preop2);
+            
+            String postop2 = post.pop();
+            String postop1 = post.pop();
+            post.push(postop1+postop2+optr);
+        }
+        System.out.println(post.pop());
+        System.out.println(pre.pop());
+    }
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        String exp = sc.nextLine();
+        infixConversion(exp);
+    }
+}
