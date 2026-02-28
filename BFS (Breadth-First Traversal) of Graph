@@ -1,0 +1,39 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        int M = sc.nextInt();
+        List<List<Integer>> adjList = new ArrayList<>();
+        for(int i=0;i<N;i++){
+            adjList.add(new ArrayList<>());
+        }
+        for(int i=0;i<M;i++){
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            adjList.get(u).add(v);
+            adjList.get(v).add(u);
+        }
+        
+        int[] vis = new int[N];
+        Queue<Integer> q = new LinkedList<>();
+        q.add(0);
+        vis[0] = 1;
+        
+        while(q.size() > 0){
+            int node = q.remove();
+            System.out.print(node +" ");
+            for(int nbr : adjList.get(node)){
+                if(vis[nbr] == 0){
+                    vis[nbr] = 1;
+                    q.add(nbr);
+                }
+            }
+        }
+        
+    }
+}
