@@ -1,0 +1,41 @@
+class Solution {
+    private static boolean bfs(int node, int[] colour, List<List<Integer>> adjList){
+        Queue<Integer> q = new LinkedList<>();
+        q.add(node);
+        colour[node] = 0;
+        while(q.size() > 0){
+            node = q.remove();
+            for(int nbr : adjList.get(node)){
+                if(colour[nbr] == -1){
+                    colour[nbr] = 1- colour[node];
+                    q.add(nbr);
+                }else if(colour[nbr] == colour[node]){
+                    return false;
+                }
+            }
+        }
+        return true;
+        
+    }
+    public boolean isBipartite(int V, int[][] edges) {
+        // Code here
+        List<List<Integer>> adjList = new ArrayList<>();
+        for(int i=0;i<V;i++){
+            adjList.add(new ArrayList<>());
+        }
+        for(int edge[] : edges){
+            int u = edge[0];
+            int v = edge[1];
+            adjList.get(u).add(v);
+            adjList.get(v).add(u);
+        }
+        int[] colour = new int[V];
+        Arrays.fill(colour, -1);
+        for(int i=0;i<V;i++){
+            if(colour[i] == -1){
+                if(bfs(i, colour, adjList) == false) return false;
+            }
+        }
+        return true;
+    }
+}
