@@ -1,39 +1,39 @@
 class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
         int n = nums.length;
-        List<List<Integer>> result = new ArrayList<>();
-        if (nums == null || n == 0) return result;
-
         Arrays.sort(nums);
+        List<List<Integer>> ans = new ArrayList<>();
+        for(int i=0;i<n-3;i++){
+            if(i > 0 && (nums[i] == nums[i-1])) continue;
+            for(int j=i+1;j<n-2;j++){
+                if(j > i+1 && (nums[j] == nums[j-1])) continue;
+                int k = j+1;
+                int w = n-1;
 
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                long target_2 = (long) target - (long) nums[i] - (long) nums[j];
-                int left = j + 1;
-                int right = n - 1;
+                while(k < w){
+                    long sum = (long)nums[i]+nums[j]+nums[k]+nums[w];
 
-                while (left < right) {
-                    long two_sum = (long) nums[left] + (long) nums[right];
-                    if (two_sum < target_2) left++;
-                    else if (two_sum > target_2) right--;
-                    else {
-                        List<Integer> quad = new ArrayList<>();
-                        quad.add(nums[i]);
-                        quad.add(nums[j]);
-                        quad.add(nums[left]);
-                        quad.add(nums[right]);
-                        result.add(quad);
+                    if(sum == target){
+                        List<Integer> subans = new ArrayList<>();
+                        subans.add(nums[i]);
+                        subans.add(nums[j]);
+                        subans.add(nums[k]);
+                        subans.add(nums[w]);
+                        ans.add(subans);
 
-                        while (left < right && nums[left] == quad.get(2)) ++left;
-                        while (left < right && nums[right] == quad.get(3)) --right;
+                        k++;
+                        w--;
+                        while(k < w && (nums[k] == nums[k-1])) k++;
+                        while(k < w && (nums[w] == nums[w+1])) w--;
+
+                    }else if(sum < target){
+                        k++;
+                    }else{
+                        w--;
                     }
                 }
-
-                while (j + 1 < n && nums[j + 1] == nums[j]) ++j;
             }
-            while (i + 1 < n && nums[i + 1] == nums[i]) ++i;
         }
-
-        return result;
+        return ans;
     }
 }
