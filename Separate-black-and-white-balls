@@ -1,0 +1,14 @@
+class Solution {
+    public long minimumSteps(String s) {
+        int steps = 0;
+        int countOnes = 0;
+        for(char ch : s.toCharArray()){
+            if(ch == '1'){
+                countOnes++;
+            }else{
+                steps += countOnes;
+            }
+        }
+        return steps;
+    }
+}
