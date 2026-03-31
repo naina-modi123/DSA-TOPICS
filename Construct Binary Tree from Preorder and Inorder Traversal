@@ -1,0 +1,20 @@
+class Solution {
+    private TreeNode helper(int[] preorder, int psi, int pei, int[] inorder, int isi, int iei){
+        if(isi > iei) return null;
+
+        TreeNode root = new TreeNode(preorder[psi]);
+        int idx = isi;
+        while(inorder[idx] != preorder[psi]){
+            idx++;
+        }
+        int nodes = idx - isi;
+
+        root.left = helper(preorder, psi+1, psi+nodes, inorder, isi, idx - 1);
+        root.right = helper(preorder,psi+nodes+1, pei, inorder, idx+1, iei);
+        return root;
+    }
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        int n = inorder.length;
+        return helper(preorder, 0, n-1, inorder, 0, n-1);
+    }
+}
