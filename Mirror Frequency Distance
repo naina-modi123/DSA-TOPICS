@@ -1,0 +1,30 @@
+class Solution {
+    public int mirrorFrequency(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for(char ch : s.toCharArray()){
+            map.put(ch, map.getOrDefault(ch, 0)+1);
+        }
+        int ans = 0;
+        Set<Character> visited = new HashSet<>();
+
+        for(char ch : map.keySet()){
+            if(visited.contains(ch)) continue;
+
+            char minor;
+            if(Character.isDigit(ch)){
+                minor = (char)('0' + ('9'- ch));
+            }else{
+                minor = (char)('a' + ('z' - ch));
+            }
+
+            int freqC = map.getOrDefault(ch, 0);
+            int freqM = map.getOrDefault(minor, 0);
+
+            ans += Math.abs(freqC - freqM);
+
+            visited.add(ch);
+            visited.add(minor);
+        }
+        return ans;
+    }
+}©leetcode
