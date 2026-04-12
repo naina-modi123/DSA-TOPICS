@@ -1,0 +1,18 @@
+class Solution {
+    public double[] internalAngles(int[] sides) {
+        double[] ans = new double[3];
+        Arrays.sort(sides);
+        int a = sides[0];
+        int b = sides[1];
+        int c = sides[2];
+        if(a+b <= c) return new double[0];
+        double angleC = (a*a+b*b - c*c)/(2.0*a*b);
+        ans[0] = Math.toDegrees(Math.acos(angleC));
+        double angleB = (c*c+a*a - b*b)/(2.0*a*c);
+        ans[1] = Math.toDegrees(Math.acos(angleB));
+        double angleA = (c*c+b*b - a*a)/(2.0*c*b);
+        ans[2] = Math.toDegrees(Math.acos(angleA));
+        Arrays.sort(ans);
+        return ans;
+    }
+}©leetcode
