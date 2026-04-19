@@ -1,0 +1,16 @@
+class Solution {
+    public int firstStableIndex(int[] nums, int k) {
+        int n = nums.length;
+        int maximum = Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            maximum = Math.max(maximum, nums[i]);
+            int minimum = Integer.MAX_VALUE;
+            for(int j=i;j<n;j++){
+                minimum = Math.min(minimum, nums[j]);
+            }
+            int subans = maximum - minimum;
+            if(subans <= k) return i;
+        }
+        return -1 ;   
+    }
+}©leetcode
