@@ -1,0 +1,25 @@
+class Solution {
+    public List<String> twoEditWords(String[] queries, String[] dictionary) {
+        List<String> ans = new ArrayList<>();
+        for(String str : queries){
+            if(helper(str, dictionary)){
+                ans.add(str);
+            }
+        }
+        return ans;
+    }
+    private boolean helper(String str, String[] dictionary){
+        int ans = 0, i = 0;
+        while(i < dictionary.length){
+            ans = 0;
+            String curr = dictionary[i];
+            for(int j=0;j<curr.length();j++){
+                if(str.charAt(j) != curr.charAt(j)) ans++;
+                if(ans > 2) break;
+            }
+            i++;
+            if(ans <= 2) return true;
+        }
+        return ans <= 2;
+    }
+}
