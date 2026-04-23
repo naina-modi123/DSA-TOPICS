@@ -1,0 +1,29 @@
+class Solution {
+    public long[] distance(int[] nums) {
+        int n = nums.length;
+        long[] arr = new long[n];
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for (int i = 0;i < n;i++) {
+            map.computeIfAbsent(nums[i], k -> new ArrayList<>()).add(i);
+        }
+        for (List<Integer> list : map.values()) {
+            long sum = 0;
+            int count = 0;
+            for (int index : list) {
+                arr[index] += (long) index * count - sum;
+                sum += index;
+                count++;
+            }
+            sum = 0;
+            count = 0;
+            for(int i = list.size()-1;i >= 0;i--){
+                int index = list.get(i);
+                arr[index] += sum - (long) index * count;
+                sum += index;
+                count++;
+            }
+        }
+
+        return arr;
+    }
+}
