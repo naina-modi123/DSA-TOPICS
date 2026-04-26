@@ -1,0 +1,15 @@
+class Solution {
+    public long minOperations(int[] nums) {
+        int[] arr = nums;
+        int size = arr.length;
+        long minTotalCost = 0;
+
+        for (int i = 1; i < size; i++) {
+            if (arr[i] < arr[i - 1]) {
+                minTotalCost += (long) arr[i - 1] - arr[i];
+            }
+        }
+
+        return minTotalCost;
+    }
+}©leetcode
