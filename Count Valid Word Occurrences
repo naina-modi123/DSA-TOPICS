@@ -1,0 +1,44 @@
+class Solution {
+    public int[] countWordOccurrences(String[] chunks, String[] queries) {
+        StringBuilder sb = new StringBuilder();
+        for (String chunk : chunks) {
+            sb.append(chunk);
+        }
+        String match = sb.toString();
+        HashMap<String, Integer> map = new HashMap<>();
+
+        int n = match.length();
+        int start = -1;
+        for (int i = 0; i <= n; i++) {
+            char ch = (i < n) ? match.charAt(i) : ' ';  
+
+            if (start == -1) {
+                if (ch >= 'a' && ch <= 'z') {
+                    start = i;
+                }
+            } else {
+                if ((ch >= 'a' && ch <= 'z') ||
+                    (ch == '-' &&
+                     i > 0 && i < n - 1 &&
+                     match.charAt(i - 1) >= 'a' && match.charAt(i - 1) <= 'z' &&
+                     match.charAt(i + 1) >= 'a' && match.charAt(i + 1) <= 'z')) {
+                    continue;
+                }
+                
+                String word = match.substring(start, i);
+                map.put(word, map.getOrDefault(word, 0) + 1);
+                start = -1;
+                if (ch >= 'a' && ch <= 'z') {
+                    start = i;
+                }
+            }
+        }
+
+        int[] ans = new int[queries.length];
+        for (int i = 0; i < queries.length; i++) {
+            ans[i] = map.getOrDefault(queries[i], 0);
+        }
+
+        return ans;
+    }
+}
