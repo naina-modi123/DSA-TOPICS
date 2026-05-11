@@ -1,0 +1,19 @@
+class Solution {
+    public int[] separateDigits(int[] nums) {
+        int n = nums.length;
+        ArrayList<Integer> ans = new ArrayList<>();
+        for(int num : nums){
+            String s = String.valueOf(num);
+
+            for(char ch : s.toCharArray()){
+                ans.add(ch - '0');
+            }
+        }
+        int[] res = new int[ans.size()];
+        int i=0;
+        for(int num : ans){
+            res[i++] = num;
+        }
+        return res;
+    }
+}
