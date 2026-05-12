@@ -1,0 +1,20 @@
+class Solution {
+    public int[] findErrorNums(int[] nums) {
+        int n = nums.length;
+        int[] ans = new int[2];
+        int totalsum = n *(n+1)/2;
+        int sum = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int num : nums){
+            map.put(num, map.getOrDefault(num, 0)+1);
+            sum += num;
+        }
+        for(int num : map.keySet()){
+            if(map.get(num) > 1){
+                ans[0] = num;
+            }
+        }
+        ans[1] = totalsum - sum + ans[0];
+        return ans;
+    }
+}
