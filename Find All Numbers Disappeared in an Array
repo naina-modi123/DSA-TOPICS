@@ -1,0 +1,20 @@
+class Solution {
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+         List<Integer> ans = new ArrayList<>();
+        Arrays.sort(nums);
+        int i = 1;    
+        int j = 0;   
+
+        while (i <= nums.length) {
+            if (j < nums.length && nums[j] == i) {
+                while (j < nums.length && nums[j] == i) {
+                    j++;  
+                }
+            } else {
+                ans.add(i); 
+            }
+            i++;
+        }
+        return ans;
+    }
+}
