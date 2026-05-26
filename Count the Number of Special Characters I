@@ -1,0 +1,23 @@
+class Solution {
+    public int numberOfSpecialChars(String word) {
+        boolean[] lowerCase = new boolean[26];
+        boolean[] upperCase = new boolean[26];
+        for(char ch : word.toCharArray()){
+            if (Character.isLowerCase(ch)) {
+                lowerCase[ch - 'a'] = true;
+            } else {
+                upperCase[ch - 'A'] = true;
+            }
+        }
+        
+        int count = 0;
+        for(int i = 0; i < 26; i++){
+            if(lowerCase[i] && upperCase[i]){
+                count++;
+            }
+        }
+        
+        return count;
+
+    }
+}
