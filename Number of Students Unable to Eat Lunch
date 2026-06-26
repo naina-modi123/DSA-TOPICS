@@ -1,0 +1,21 @@
+class Solution {
+    public int countStudents(int[] students, int[] sandwiches) {
+        int zero = 0, ones = 0;
+        for(int std : students){
+            if(std == 0) zero++;
+            else ones++;
+        }
+        for(int sandwich : sandwiches){
+            if(sandwich == 0){
+                if(zero == 0){
+                    return ones;
+                }
+                zero--;
+            }else{
+                if(ones == 0) return zero;
+                ones--;
+            }
+        }
+        return 0;
+    }
+}
