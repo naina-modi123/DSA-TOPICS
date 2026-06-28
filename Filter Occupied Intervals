@@ -1,0 +1,42 @@
+class Solution {
+    public List<List<Integer>> filterOccupiedIntervals(int[][] occupiedIntervals, int freeStart, int freeEnd) {
+        List<int[]> ans = new ArrayList<>();
+        Arrays.sort(occupiedIntervals, (a,b) -> a[0] - b[0]);
+        for(int[] curr : occupiedIntervals){
+            if(ans.isEmpty()){
+                ans.add(new int[]{curr[0], curr[1]});
+            }else{
+                int[] last = ans.get(ans.size() - 1);
+
+                if(curr[0] <= last[1]+1){
+                    last[1] = Math.max(curr[1], last[1]);
+                }else{
+                    ans.add(new int[]{curr[0], curr[1]});
+                }
+            }
+        }
+        List<List<Integer>> res = new ArrayList<>();
+        for(int[] interval : ans){
+            int l = interval[0];
+            int r = interval[1];
+            if(r < freeStart || l > freeEnd){
+                res.add(Arrays.asList(l, r));
+            }
+            else if (freeStart <= l && freeEnd >= r) {
+                continue;
+            }
+            else if (l < freeStart && r > freeEnd) {
+                res.add(Arrays.asList(l, freeStart - 1));
+                res.add(Arrays.asList(freeEnd + 1, r));
+            }
+            else if (l < freeStart) {
+                res.add(Arrays.asList(l, freeStart - 1));
+            }
+            else {
+                res.add(Arrays.asList(freeEnd + 1, r));
+            }
+        }
+
+        return res;
+    }
+}
