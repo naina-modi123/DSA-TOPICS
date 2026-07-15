@@ -1,0 +1,28 @@
+class Solution {
+    public int gcd(int a, int b){
+        while(b != 0){
+            int temp = a%b;
+            a = b;
+            b = temp;
+        }
+        return a;
+    }
+    public int gcdOfOddEvenSums(int n) {
+        int sumOdd = 0, sumEven = 0;
+        int countO = n, countE = n;
+        int i = 1;
+        while(countO > 0 && countE > 0){
+            if(i % 2 == 0){
+                sumEven += i;
+                countE--;
+            }else{
+                sumOdd += i;
+                countO--;
+            }
+            i++;
+        }
+        return (gcd(sumEven, sumOdd));
+   
+        
+    }
+}
