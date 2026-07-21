@@ -1,0 +1,22 @@
+class Solution {
+    public boolean backspaceCompare(String s, String t) {
+        Stack<Character> st1 = new Stack<>();
+        for(char ch : s.toCharArray()){
+            if(ch != '#'){
+                st1.push(ch);
+            }else if(st1.size() > 0){
+                st1.pop();
+            }
+        }
+        Stack<Character> st2 = new Stack<>();
+        for(char ch : t.toCharArray()){
+            if(ch != '#'){
+                st2.push(ch);
+            }else if(st2.size() > 0){
+                st2.pop();
+            }
+        }
+        return (st1.equals(st2));
+
+    }
+}
