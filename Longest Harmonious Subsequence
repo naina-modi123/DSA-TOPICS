@@ -1,0 +1,18 @@
+class Solution {
+    public int findLHS(int[] nums) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        int i=0,j=0;
+        int maxLen = 0;
+        while(i < n){
+            while(nums[i] - nums[j] > 1){
+                j++;
+            }
+            if(nums[i] - nums[j] == 1){
+                maxLen = Math.max(maxLen, i-j+1);
+            }
+            i++;
+        }
+        return maxLen;
+    }
+}
