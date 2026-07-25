@@ -1,0 +1,20 @@
+class Solution {
+    public int dominantIndex(int[] nums) {
+        int n = nums.length;
+        int[] arr = nums.clone();
+        Arrays.sort(arr);
+        int target = arr[n-1];
+        for(int i=0;i<n-1;i++){
+            if(2*arr[i] > target){
+                return -1;
+            }
+        }
+        for(int j=0;j<n;j++){
+            if(nums[j] == target){
+                return j;
+            }
+        }
+        return -1;
+        
+    }
+}
