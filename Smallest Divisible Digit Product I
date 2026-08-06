@@ -1,0 +1,21 @@
+class Solution {
+    private int prodOfDigits(int i){
+        int prod = 1;
+        while(i != 0){
+            int digit = i%10;
+            prod *= digit;
+            i /= 10;
+        }
+        return prod;
+    }
+    public int smallestNumber(int n, int t) {
+        int subans = 0;
+        for(int i=n;;i++){
+            subans = prodOfDigits(i);
+            if(subans % t == 0){
+                return i;
+            }
+        }
+        
+    }
+}
