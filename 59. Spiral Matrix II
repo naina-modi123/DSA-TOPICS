@@ -1,0 +1,33 @@
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int[][] ans = new int[n][n];
+        int rmin = 0, rmax = n - 1;
+        int cmin = 0, cmax = n - 1;
+        int count = n * n;
+        int num = 1;
+
+        while (count > 0) {
+            for (int col = cmin; col <= cmax && count > 0; col++) {
+                ans[rmin][col] = num++;
+                count--;
+            }
+            rmin++;
+            for (int row = rmin; row <= rmax && count > 0; row++) {
+                ans[row][cmax] = num++;
+                count--;
+            }
+            cmax--;
+            for (int col = cmax; col >= cmin && count > 0; col--) {
+                ans[rmax][col] = num++;
+                count--;
+            }
+            rmax--;
+            for (int row = rmax; row >= rmin && count > 0; row--) {
+                ans[row][cmin] = num++;
+                count--;
+            }
+            cmin++;
+        }
+        return ans;
+    }
+}
