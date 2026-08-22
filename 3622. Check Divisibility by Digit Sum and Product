@@ -1,0 +1,15 @@
+class Solution {
+    public boolean checkDivisibility(int n) {
+
+        int d = n;
+        int sumOfDigits = 0;
+        int prodOfDigits = 1;
+
+        while (d != 0) {
+            sumOfDigits += d % 10;
+            prodOfDigits *= d % 10;
+            d = d / 10;
+        }
+        return n % (sumOfDigits + prodOfDigits) == 0;
+    }
+}
