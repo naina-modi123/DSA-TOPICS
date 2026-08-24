@@ -1,0 +1,28 @@
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        String[] word = s.trim().split("\\s+");
+        if(pattern.length() != word.length){
+            return false;
+        }
+        HashMap<Character, String> map = new HashMap<>();
+        HashSet<String> seenwords = new HashSet<>();
+        
+        for(int i=0;i<pattern.length();i++){
+            char ch = pattern.charAt(i);
+            String w = word[i];
+
+            if(map.containsKey(ch)){
+                if(!map.get(ch).equals(w)){
+                    return false;
+                }
+            }else{
+                if(seenwords.contains(w)){
+                    return false;
+                }
+                map.put(ch, w);
+                seenwords.add(w);
+            }
+        }
+        return true;
+    }
+}
