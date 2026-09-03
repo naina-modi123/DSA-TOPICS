@@ -1,0 +1,17 @@
+class Solution {
+    public boolean uniformArray(int[] nums1) {
+        int[] nums2 = nums1;
+        int oddCount = 0, evenCount = 0;
+        int min = Integer.MAX_VALUE;
+        for(int num : nums2){
+            if(num % 2 == 0){
+                evenCount++;
+            }else{
+                oddCount++;
+            }
+            min = Math.min(min, num);
+        }
+        if(oddCount == 0 || evenCount == 0) return true;
+        return min % 2 == 1;
+    }
+}
