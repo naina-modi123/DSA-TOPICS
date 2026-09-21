@@ -1,0 +1,21 @@
+class Solution {
+    public long[] resultArray(int[] nums, int k) {
+        long[] ans = new long[k];
+        int[] freq = new int[k];
+
+        for (int num : nums) {
+            num %= k;
+            int[] curr = new int[k];
+            curr[num] = 1;
+
+            for (int x = 0; x < k; x++)
+                curr[x * num % k] += freq[x];
+
+            freq = curr;
+            for (int x = 0; x < k; x++)
+                ans[x] += freq[x];
+        }
+
+        return ans;
+    }
+}
