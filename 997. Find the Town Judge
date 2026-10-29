@@ -1,0 +1,21 @@
+class Solution {
+    public int findJudge(int n, int[][] trust) {
+        int[] check = new int[n + 1];
+
+        for (int[] x : trust) {
+            int a = x[0];
+            int b = x[1];
+
+            check[a]--;  
+            check[b]++; 
+        }
+
+        for (int person = 1; person <= n; person++) {
+            if (check[person] == n-1) {
+                return person;
+            }
+        }
+
+        return -1;
+    }
+}
